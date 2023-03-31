@@ -13,7 +13,7 @@ form.addEventListener('submit', (e)=>{
     }
     // let details_serialized = JSON.stringify(details);
     // localStorage.setItem(email,details_serialized);
-    axios.post('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp',details)
+    axios.post('https://crudcrud.com/api/1b3bcaae57554e859c69ef7fed170a65/AppointmentData',details)
     .then((result) => {
         console.log(result)
         showUser(result.data)
@@ -21,7 +21,7 @@ form.addEventListener('submit', (e)=>{
         console.log(err)
     });
     
-    // axios.get('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp')
+    // axios.get('https://crudcrud.com/api/1b3bcaae57554e859c69ef7fed170a65/AppointmentData')
     // .then((responce) => {
     //     showUser(responce.data)
     // }).catch((err) => {
@@ -34,7 +34,7 @@ form.addEventListener('submit', (e)=>{
 })
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp')
+    axios.get('https://crudcrud.com/api/1b3bcaae57554e859c69ef7fed170a65/AppointmentData')
     .then((result) => {
         const objKey = Object.keys(result.data);
         // const obj_deserialized = JSON.stringify(result.data);
@@ -46,16 +46,36 @@ window.addEventListener('DOMContentLoaded',()=>{
         console.log(err)
     });
 })
- function showUser(data){
-    const list = document.getElementById('listofitems');
-    const del = document.createElement('button');
-    del.appendChild(document.createTextNode('del'));
-    const edit = document.createElement('button');
-    edit.appendChild(document.createTextNode('edit'));
-    const li = document.createElement('li');
-    li.appendChild(document.createTextNode(data.name+"-"+data.email+"-"+data.phone));
-    list.appendChild(li);
-    list.appendChild(edit);
-    list.appendChild(del);
+ function showUser(user){
+    document.getElementById('fullname').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    const parentNode = document.getElementById('listofitems');
+    const childHTMl = `<li id=${user._id}>${user.name}-${user.email}-${user.phone}
+                      <button onClick=deleteUser('${user._id}')>Del</button><button onClick=editUser('${user.name}','${user.email}','${user.phone}','${user._id}')>edit</button></li>`;
+    parentNode.innerHTML += childHTMl
+ }
 
+ function deleteUser(userId){
+    
+    axios.delete(`https://crudcrud.com/api/1b3bcaae57554e859c69ef7fed170a65/AppointmentData/${userId}`)
+    .then(() => {
+        removeUserFromScreen(userId);
+    }).catch((err) => {
+        console.log(err)
+    });
+ }
+ function removeUserFromScreen(userId){
+    const parentNode = document.getElementById('listofitems');
+    const delNode = document.getElementById(userId);
+    if(delNode){
+        parentNode.removeChild(delNode);
+    }
+
+ }
+ function editUser(name,email,phone,userId){
+    document.getElementById('fullname').value = name;
+    document.getElementById('email').value = email;
+    document.getElementById('phone').value = phone;
+   deleteUser(userId);
  }
