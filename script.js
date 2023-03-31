@@ -16,19 +16,46 @@ form.addEventListener('submit', (e)=>{
     axios.post('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp',details)
     .then((result) => {
         console.log(result)
+        showUser(result.data)
     }).catch((err) => {
         console.log(err)
     });
-    const list = document.getElementById('listofitems');
-    const li = document.createElement('li');
-    axios.get('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp')
-    .then((responce) => {
-        console.log(responce.data.name)
-    }).catch((err) => {
-        console.log(err)
+    
+    // axios.get('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp')
+    // .then((responce) => {
+    //     showUser(responce.data)
+    // }).catch((err) => {
+    //     console.log(err)
 
-    });
+    // });
     // li.appendChild(document.createTextNode(name+"-"+email+"-"+phone));
     // list.appendChild(li);
     
 })
+
+window.addEventListener('DOMContentLoaded',()=>{
+    axios.get('https://crudcrud.com/api/29f947bfe01e49d69392badd067297c3/AppointmentApp')
+    .then((result) => {
+        const objKey = Object.keys(result.data);
+        // const obj_deserialized = JSON.stringify(result.data);
+        for(let i=0; i<objKey.length; i++){
+            
+            showUser(result.data[i]);
+        }
+    }).catch((err) => {
+        console.log(err)
+    });
+})
+ function showUser(data){
+    const list = document.getElementById('listofitems');
+    const del = document.createElement('button');
+    del.appendChild(document.createTextNode('del'));
+    const edit = document.createElement('button');
+    edit.appendChild(document.createTextNode('edit'));
+    const li = document.createElement('li');
+    li.appendChild(document.createTextNode(data.name+"-"+data.email+"-"+data.phone));
+    list.appendChild(li);
+    list.appendChild(edit);
+    list.appendChild(del);
+
+ }
