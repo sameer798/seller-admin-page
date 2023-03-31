@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <div class="outer-box"> 
+        <div class="inner-box">
+            <h1>Book a Appointment</h1>
+            <main class="signup-body">
+                <form action="#" id="addForm">
+                    <p>
+                     <label for="fullname">Full name</label>
+                     <input type="text" id="fullname" required>
+                    </p>
+                     <p>
+                         <label for="email">E-mail</label>
+                          <input type="email" id="email"required>
+                     </p>
+                     <p>
+                         <label for="phone">Contact no</label>
+                         <input type="number" id="phone" required>
+                     </p>
+                     <p>
+                         <input type="submit" id="submit" value="book now">
+                     </p>
+                 </form>
+                 
+            </main>
+        </div>
+        <ul id="listofitems" style="color:rgb(110, 110, 208)"></ul>
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js" integrity="sha512-LUKzDoJKOLqnxGWWIBM4lzRBlxcva2ZTztO8bTcWPmDSpkErWx0bSP4pdsjNH8kiHAUPaT06UXcb+vOEZH+HpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>
